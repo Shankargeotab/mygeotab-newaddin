@@ -1,9 +1,9 @@
 {
-  "name": "Plow Status Add-in",
-  "version": "1.0",
-  "description": "Displays Aux 6 as Plow Status in MyGeotab Map UI",
-  "supportEmail": "help@dicaninc.com",
-  "url": "https://shankargeotab.github.io/mygeotab-newaddin/index.html",
-  "allowAnonymous": false
+  "PlowStatus": "Plow Status",
+  "CheckPlowStatus": "Check Plow Status",
+  "Loading": "Loading...",
+  "NoVehicles": "No vehicles with Plow ON. Not plowing now.",
+  "ErrorLoading": "Error loading plow status."
 }
+
 
