@@ -43,10 +43,10 @@
 
     <script>
         document.getElementById("plowButton").addEventListener("click", function () {
-            if (window.updatePlowStatus) {
+            if (typeof window.updatePlowStatus === "function") {
                 window.updatePlowStatus();
             } else {
-                console.error("updatePlowStatus function is not defined.");
+                console.error("updatePlowStatus function is not found.");
                 document.getElementById("status").innerText = "Error: Function not found.";
             }
         });
