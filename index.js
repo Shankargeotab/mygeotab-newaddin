@@ -6,6 +6,7 @@ window.geotab.addin.plowStatus = {
     focus(api, state) {
         console.log("Plow Status Add-in Focused");
 
+        // Ensure function is globally accessible
         window.updatePlowStatus = async function () {
             console.log("Fetching plow status...");
             try {
@@ -46,4 +47,4 @@ window.geotab.addin.plowStatus = {
         // Call the function automatically when the Add-in loads
         window.updatePlowStatus();
     }
-}; // ✅ Make sure this is the only closing bracket
+};
