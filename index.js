@@ -24,7 +24,7 @@ window.geotab.addin.plowStatus = {
                 // Display results
                 const statusElement = document.getElementById("status");
                 if (activeVehicles.length === 0) {
-                    statusElement.innerText = "No vehicles with Plow ON.";
+                    statusElement.innerText = "No vehicles with Plow ON. Not plowing now.";
                 } else {
                     let vehicleList = "<strong>Vehicles with Plow ON:</strong><br>";
                     activeVehicles.forEach(item => {
@@ -40,5 +40,8 @@ window.geotab.addin.plowStatus = {
 
         // Call the function automatically when the Add-in loads
         window.updatePlowStatus();
+    }
+};
+
     }
 };
