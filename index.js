@@ -46,4 +46,4 @@ window.geotab.addin.plowStatus = {
         // Call the function automatically when the Add-in loads
         window.updatePlowStatus();
     }
-};
+}; // ✅ Make sure this is the only closing bracket
