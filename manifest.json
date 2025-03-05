@@ -2,6 +2,8 @@
   "name": "Plow Status Add-in",
   "version": "1.0",
   "description": "Displays Aux 6 as Plow Status in MyGeotab Map UI",
+  "supportEmail": "help@dicaninc.com",
   "url": "https://shankargeotab.github.io/mygeotab-newaddin/index.html",
   "allowAnonymous": false
 }
+
