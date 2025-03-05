@@ -7,22 +7,22 @@ window.geotab.addin.plowStatus = {
         console.log("Plow Status Add-in Focused");
 
         window.updatePlowStatus = async function () {
+            console.log("Fetching plow status..."); // Debugging Log
             try {
-                // Fetch all vehicles with Aux 6 or Third-party Aux 6 ON
                 const data = await api.call("GetFeed", {
                     typeName: "StatusData",
                     search: {
                         diagnosticSearch: {
-                            id: ["Aux6", "ThirdPartyAux6"] // Checking for both Aux 6 and Third-party Aux 6
+                            id: ["Aux6", "ThirdPartyAux6"]
                         }
                     }
                 });
-                
-                // Filter vehicles where Aux 6 or Third-party Aux 6 is ON (value === 1)
+
+                console.log("API response:", data); // Debugging Log
+
                 const activeVehicles = data.data.filter(item => item.value === 1);
-                
-                // Display results
                 const statusElement = document.getElementById("status");
+
                 if (activeVehicles.length === 0) {
                     statusElement.innerText = "No vehicles with Plow ON. Not plowing now.";
                 } else {
@@ -42,6 +42,7 @@ window.geotab.addin.plowStatus = {
         window.updatePlowStatus();
     }
 };
+
 
     }
 };
