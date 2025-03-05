@@ -1,20 +1,21 @@
 {
-  "name": "Plow Status Add-in",
-  "supportEmail": "help@dicaninc.com",
-  "version": "1.0",
-  "items": [
-    {
-      "url": "https://shankargeotab.github.io/mygeotab-newaddin/index.html",
-      "path": "ActivityLink",
-      "menuName": {
-        "en": "Plow Status",
-        "fr": "Statut de la Charrue"
-      },
-      "svgIcon": "https://cdn-icons-png.flaticon.com/512/5028/5028066.png"
-    }
-  ],
-  "files": {}
+	"name": "Plow Status Add-in",
+	"supportEmail": "help@dicaninc.com",
+	"version": "1.0",
+	"items": [
+		{
+			"url": "https://shankargeotab.github.io/mygeotab-newaddin/index.html",
+			"path": "ActivityLink",
+			"menuName": {
+				"en": "Plow Status",
+				"fr": "Statut de la Charrue"
+			},
+			"svgIcon": "https://shankargeotab.github.io/mygeotab-newaddin/icon.svg"
+		}
+	],
+	"isSigned": false
 }
+
 
 
 
