@@ -1,20 +1,40 @@
-/* manifest.json */
-{
-  "name": "Plow Status Add-in",
-  "version": "1.0",
-  "description": "Displays Aux 6 as Plow Status in MyGeotab Map UI",
-  "url": "https://shankargeotab.github.io/mygeotab-newaddin/index.html",
-  "allowAnonymous": false
-}
-
-/* index.html */
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plow Status Add-in</title>
+    <script>
+        // Ensure the add-in is loaded correctly inside MyGeotab
+        window.geotab = window.geotab || {};
+    </script>
     <script src="index.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            color: #0078D4;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0078D4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #005EA6;
+        }
+        p {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Plow Status</h1>
@@ -22,25 +42,3 @@
     <p id="status">Loading...</p>
 </body>
 </html>
-
-/* index.js */
-window.geotab.addin.plowStatus = (api, state) => {
-    console.log("Plow Status Add-in Loaded");
-
-    window.updatePlowStatus = async function () {
-        try {
-            const data = await api.call("GetFeed", {
-                typeName: "StatusData",
-                search: {
-                    diagnosticSearch: { id: "Aux6" },
-                    deviceSearch: { id: state.device.id }
-                }
-            });
-            
-            const status = data.data.length > 0 && data.data[0].value === 1 ? "Plow is Active" : "Plow is Inactive";
-            document.getElementById("status").innerText = status;
-        } catch (error) {
-            console.error("Error fetching plow status:", error);
-        }
-    };
-};
