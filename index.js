@@ -7,7 +7,7 @@ window.geotab.addin.plowStatus = {
         console.log("Plow Status Add-in Focused");
 
         window.updatePlowStatus = async function () {
-            console.log("Fetching plow status..."); // Debugging Log
+            console.log("Fetching plow status...");
             try {
                 const data = await api.call("GetFeed", {
                     typeName: "StatusData",
@@ -18,10 +18,15 @@ window.geotab.addin.plowStatus = {
                     }
                 });
 
-                console.log("API response:", data); // Debugging Log
+                console.log("API response:", data);
 
                 const activeVehicles = data.data.filter(item => item.value === 1);
                 const statusElement = document.getElementById("status");
+
+                if (!statusElement) {
+                    console.error("Element with ID 'status' not found.");
+                    return;
+                }
 
                 if (activeVehicles.length === 0) {
                     statusElement.innerText = "No vehicles with Plow ON. Not plowing now.";
@@ -40,9 +45,5 @@ window.geotab.addin.plowStatus = {
 
         // Call the function automatically when the Add-in loads
         window.updatePlowStatus();
-    }
-};
-
-
     }
 };
