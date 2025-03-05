@@ -7,7 +7,7 @@
     <script>
         window.geotab = window.geotab || {};
     </script>
-    <script src="index.js" defer></script>
+    <script src="index.js" defer></script> <!-- ✅ Ensures index.js is loaded -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,6 +44,7 @@
     <script>
         document.getElementById("plowButton").addEventListener("click", function () {
             if (typeof window.updatePlowStatus === "function") {
+                console.log("Button Clicked - Calling updatePlowStatus()");
                 window.updatePlowStatus();
             } else {
                 console.error("updatePlowStatus function is not found.");
