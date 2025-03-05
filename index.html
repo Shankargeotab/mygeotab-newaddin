@@ -8,7 +8,7 @@
         // Ensure the add-in is loaded correctly inside MyGeotab
         window.geotab = window.geotab || {};
     </script>
-    <script src="index.js"></script>
+    <script src="index.js" defer></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,6 +26,7 @@
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #005EA6;
@@ -38,7 +39,19 @@
 </head>
 <body>
     <h1>Plow Status</h1>
-    <button onclick="updatePlowStatus()">Check Plow Status</button>
+    <button id="plowButton">Check Plow Status</button>
     <p id="status">Loading...</p>
+
+    <script>
+        document.getElementById("plowButton").addEventListener("click", function () {
+            if (window.updatePlowStatus) {
+                window.updatePlowStatus();
+            } else {
+                console.error("updatePlowStatus function is not defined.");
+                document.getElementById("status").innerText = "Error: Function not found.";
+            }
+        });
+    </script>
 </body>
 </html>
+
