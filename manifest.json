@@ -9,7 +9,8 @@
       "menuName": {
         "en": "Plow Status",
         "fr": "Statut de la Charrue"
-      }
+      },
+      "svgIcon": "https://upload.wikimedia.org/wikipedia/commons/4/42/Snowplow_icon.svg"
     }
   ],
   "files": {}
