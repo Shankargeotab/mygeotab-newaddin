@@ -1,9 +1,18 @@
 {
-  "PlowStatus": "Plow Status",
-  "CheckPlowStatus": "Check Plow Status",
-  "Loading": "Loading...",
-  "NoVehicles": "No vehicles with Plow ON. Not plowing now.",
-  "ErrorLoading": "Error loading plow status."
+  "name": "Plow Status Add-in",
+  "supportEmail": "help@dicaninc.com",
+  "version": "1.0",
+  "items": [
+    {
+      "url": "https://shankargeotab.github.io/mygeotab-newaddin/index.html",
+      "path": "ActivityLink",
+      "menuName": {
+        "en": "Plow Status",
+        "fr": "Statut de la Charrue"
+      }
+    }
+  ],
+  "files": {}
 }
 
 
