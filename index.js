@@ -5,21 +5,40 @@ window.geotab.addin.plowStatus = {
     },
     focus(api, state) {
         console.log("Plow Status Add-in Focused");
+
         window.updatePlowStatus = async function () {
             try {
+                // Fetch all vehicles with Aux 6 or Third-party Aux 6 ON
                 const data = await api.call("GetFeed", {
                     typeName: "StatusData",
                     search: {
-                        diagnosticSearch: { id: "Aux6" },
-                        deviceSearch: { id: state.device.id }
+                        diagnosticSearch: {
+                            id: ["Aux6", "ThirdPartyAux6"] // Checking for both Aux 6 and Third-party Aux 6
+                        }
                     }
                 });
-
-                const status = data.data.length > 0 && data.data[0].value === 1 ? "Plow is Active" : "Plow is Inactive";
-                document.getElementById("status").innerText = status;
+                
+                // Filter vehicles where Aux 6 or Third-party Aux 6 is ON (value === 1)
+                const activeVehicles = data.data.filter(item => item.value === 1);
+                
+                // Display results
+                const statusElement = document.getElementById("status");
+                if (activeVehicles.length === 0) {
+                    statusElement.innerText = "No vehicles with Plow ON.";
+                } else {
+                    let vehicleList = "<strong>Vehicles with Plow ON:</strong><br>";
+                    activeVehicles.forEach(item => {
+                        vehicleList += `Vehicle ID: ${item.device.id} <br>`;
+                    });
+                    statusElement.innerHTML = vehicleList;
+                }
             } catch (error) {
                 console.error("Error fetching plow status:", error);
+                document.getElementById("status").innerText = "Error loading plow status.";
             }
         };
+
+        // Call the function automatically when the Add-in loads
+        window.updatePlowStatus();
     }
 };
