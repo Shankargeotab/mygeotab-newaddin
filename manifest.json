@@ -5,16 +5,18 @@
 	"items": [
 		{
 			"url": "https://shankargeotab.github.io/mygeotab-newaddin/index.html",
-			"path": "ActivityLink",
+			"path": "Map",
 			"menuName": {
 				"en": "Plow Status",
 				"fr": "Statut de la Charrue"
 			},
-			"svgIcon": "https://shankargeotab.github.io/mygeotab-newaddin/icon.svg"
+			"svgIcon": "https://shankargeotab.github.io/mygeotab-newaddin/icon.svg",
+			"mapScript": true
 		}
 	],
 	"isSigned": false
 }
+
 
 
 
