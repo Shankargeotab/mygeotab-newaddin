@@ -7,7 +7,7 @@
     <script>
         window.geotab = window.geotab || {};
     </script>
-    <script src="index.js" defer></script> <!-- ✅ Ensures index.js is loaded -->
+    <script src="index.js" defer></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,19 +17,6 @@
         h1 {
             color: #0078D4;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #0078D4;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #005EA6;
-        }
         p {
             font-size: 18px;
             margin-top: 20px;
@@ -37,20 +24,8 @@
     </style>
 </head>
 <body>
-    <h1>Plow Status</h1>
-    <button id="plowButton">Check Plow Status</button>
-    <p id="status">Loading...</p>
-
-    <script>
-        document.getElementById("plowButton").addEventListener("click", function () {
-            if (typeof window.updatePlowStatus === "function") {
-                console.log("Button Clicked - Calling updatePlowStatus()");
-                window.updatePlowStatus();
-            } else {
-                console.error("updatePlowStatus function is not found.");
-                document.getElementById("status").innerText = "Error: Function not found.";
-            }
-        });
-    </script>
+    <h1>Plow Status Add-in</h1>
+    <p id="status">Use the "Show Plow Status" button on the map toolbar to check the plow status.</p>
 </body>
 </html>
+
