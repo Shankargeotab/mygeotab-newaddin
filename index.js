@@ -8,6 +8,8 @@ window.geotab.addin.plowStatus = {
 
         // Ensure the container is visible
         document.getElementById("plowStatusContainer").style.display = "block";
+        document.getElementById("status").innerText = "Plow Status Add-in Loaded!";
+
 
         window.updatePlowStatus = async function () {
             try {
