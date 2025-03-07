@@ -1,35 +1,16 @@
 {
-	"name": "Plow Status Add-in",
-	"supportEmail": "help@dicaninc.com",
-	"version": "1.0",
-	"items": [
-		{
-			"menuName": {
-				"en": "Plow Status"
-			},
-			"svgIcon": "https://shankargeotab.github.io/mygeotab-newaddin/icon.svg",
-			"menuId": "PlowStatus"
-		},
-		{
-			"url": "https://shankargeotab.github.io/mygeotab-newaddin/index.html",
-			"path": "PlowStatus/",
-			"menuName": {
-				"en": "Plow Status Data"
-			},
-			"svgIcon": "https://shankargeotab.github.io/mygeotab-newaddin/icon.svg"
-		},
-		{
-			"page": "map",
-			"title": "Plow Status",
-			"noView": false,
-			"mapScript": {
-				"src": "https://shankargeotab.github.io/mygeotab-newaddin/maptools.js"
-			}
-		}
-	],
-	"isSigned": false
+  "name": "Plow Status Add-in",
+  "supportEmail": "help@dicaninc.com",
+  "version": "1.0",
+  "items": [
+    {
+      "url": "https://shankargeotab.github.io/mygeotab-newaddin/index.html",
+      "page": "map",
+      "title": "Plow Status",
+      "mapScript": {
+        "src": "https://shankargeotab.github.io/mygeotab-newaddin/maptools.js"
+      }
+    }
+  ],
+  "isSigned": false
 }
-
-
-
-
