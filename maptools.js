@@ -2,25 +2,46 @@
     window.geotab.addin.plowStatusMap = function (api, state) {
         return {
             initialize: function () {
-                console.log("Plow Status Map Add-in Initialized");
+                console.log("✅ Plow Status Map Add-in Initialized");
             },
             focus: function () {
-                console.log("Plow Status Map Add-in Focused");
+                console.log("✅ Plow Status Map Add-in Focused");
 
-                // Create a toolbar button
-                let toolbar = document.querySelector(".leaflet-bar");
-                if (!toolbar) return;
+                // Wait for the map UI to be ready
+                setTimeout(() => {
+                    let toolbar = document.querySelector(".leaflet-bar");
+                    if (!toolbar) {
+                        console.error("❌ Toolbar not found!");
+                        return;
+                    }
 
-                let plowButton = document.createElement("button");
-                plowButton.innerText = "Show Plow Status";
-                plowButton.style.padding = "5px";
-                plowButton.style.cursor = "pointer";
+                    // Avoid adding the button multiple times
+                    if (document.getElementById("plowStatusButton")) return;
 
-                plowButton.onclick = function () {
-                    state.open("Plow Status Add-in");
-                };
+                    // Create a toolbar button
+                    let plowButton = document.createElement("button");
+                    plowButton.id = "plowStatusButton";
+                    plowButton.innerText = "🚜 Show Plow Status";
+                    plowButton.style.padding = "5px";
+                    plowButton.style.cursor = "pointer";
+                    plowButton.style.backgroundColor = "#0078D4";
+                    plowButton.style.color = "white";
+                    plowButton.style.border = "none";
+                    plowButton.style.borderRadius = "5px";
+                    plowButton.style.margin = "5px";
 
-                toolbar.appendChild(plowButton);
+                    // When clicked, update the Plow Status
+                    plowButton.onclick = function () {
+                        console.log("🟢 Checking Plow Status...");
+                        if (window.updatePlowStatus) {
+                            window.updatePlowStatus();
+                        } else {
+                            console.error("❌ updatePlowStatus function not found!");
+                        }
+                    };
+
+                    toolbar.appendChild(plowButton);
+                }, 1000);
             }
         };
     };
