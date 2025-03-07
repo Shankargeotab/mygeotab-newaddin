@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plow Status Add-in</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+
+    #plowStatusContainer {
+      padding: 10px;
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+      width: 100%;
+    }
+
+    #plowStatusButton {
+      padding: 10px 15px;
+      background: #0078d4;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="plowStatusAddIn-app">
+    <h2>Plow Status Add-in</h2>
+    <p>Click the "Check Plow Status" button to view the current plow status of vehicles.</p>
+    
+    <button id="plowStatusButton">Check Plow Status</button>
+    
+    <div id="plowStatusContainer">
+      <strong>Status:</strong>
+      <p id="status">Waiting for data...</p>
+    </div>
+  </div>
+
+  <script src="plowStatusAddIn.js"></script>
+</body>
+
+</html>
