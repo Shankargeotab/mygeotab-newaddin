@@ -5,15 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plow Status Add-in</title>
     
-    <!-- Ensure the add-in is loaded correctly inside MyGeotab -->
     <script>
         window.geotab = window.geotab || {};
     </script>
 
-    <!-- Link the JavaScript file -->
     <script src="index.js"></script>
 
-    <!-- Basic Styling -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,7 +44,7 @@
 </head>
 <body>
     <div id="plowStatusContainer">
-        <h1>Plow Status Add-in</h1>
+        <h1>Plow Status</h1>
         <button onclick="updatePlowStatus()">Check Plow Status</button>
         <p id="status">Loading...</p>
     </div>
