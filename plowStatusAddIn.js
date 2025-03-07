@@ -1,67 +1,61 @@
- * The function is called whenever the Add-In button is clicked.
- *
- * @param {object} api - The GeotabApi object for making calls to MyGeotab.
- * @param {object} state - The page state object allows access to URL, page navigation, and global group filter.
- */
-window.geotab.addin.plowStatusAddIn = function(api, state) {
-  return {
-    initialize: function(api, state, addinReady) {
-      console.log("Plow Status Add-in Initialized");
-      addinReady();
-    },
+window.geotab.addin.plowStatus = (api, state) => {
+    return {
+        initialize: function () {
+            console.log("Plow Status Add-in Initialized");
+        },
+        focus: function () {
+            console.log("Plow Status Add-in Focused");
 
-    focus: function(api, state) {
-      console.log("Plow Status Add-in Focused");
-
-      // Attach button to the map toolbar if not already added
-      let toolbar = document.querySelector(".leaflet-bar");
-      if (toolbar && !document.getElementById("plowStatusToolbarButton")) {
-        let button = document.createElement("button");
-        button.id = "plowStatusToolbarButton";
-        button.innerText = "Check Plow Status";
-        button.style.padding = "5px";
-        button.style.cursor = "pointer";
-
-        button.onclick = function () {
-          document.getElementById("plowStatusAddIn-app").style.display = "block";
-          updatePlowStatus();
-        };
-
-        toolbar.appendChild(button);
-      }
-
-      // Function to fetch and update plow status
-      async function updatePlowStatus() {
-        try {
-          const data = await api.call("GetFeed", {
-            typeName: "StatusData",
-            search: {
-              diagnosticSearch: {
-                id: ["Aux6", "ThirdPartyAux6"] // Checking for both Aux 6 and Third-party Aux 6
-              }
+            // Ensure the container is always visible
+            let container = document.getElementById("plowStatusContainer");
+            if (!container) {
+                container = document.createElement("div");
+                container.id = "plowStatusContainer";
+                container.style.position = "absolute";
+                container.style.top = "50px";
+                container.style.right = "10px";
+                container.style.width = "250px";
+                container.style.height = "200px";
+                container.style.backgroundColor = "white";
+                container.style.border = "1px solid black";
+                container.style.padding = "10px";
+                container.style.zIndex = "1000";
+                document.body.appendChild(container);
             }
-          });
 
-          const activeVehicles = data.data.filter(item => item.value === 1);
-          
-          const statusElement = document.getElementById("status");
-          if (activeVehicles.length === 0) {
-            statusElement.innerText = "No vehicles with Plow ON.";
-          } else {
-            let vehicleList = "<strong>Vehicles with Plow ON:</strong><br>";
-            activeVehicles.forEach(item => {
-              vehicleList += `Vehicle ID: ${item.device.id} <br>`;
-            });
-            statusElement.innerHTML = vehicleList;
-          }
-        } catch (error) {
-          console.error("Error fetching plow status:", error);
-          document.getElementById("status").innerText = "Error loading plow status.";
+            container.innerHTML = `<h3>Plow Status</h3><p id="status">Loading...</p>`;
+
+            // Fetch Plow Status
+            window.updatePlowStatus = async function () {
+                try {
+                    const data = await api.call("GetFeed", {
+                        typeName: "StatusData",
+                        search: {
+                            diagnosticSearch: {
+                                id: ["Aux6", "ThirdPartyAux6"]
+                            }
+                        }
+                    });
+
+                    const activeVehicles = data.data.filter(item => item.value === 1);
+
+                    let statusElement = document.getElementById("status");
+                    if (activeVehicles.length === 0) {
+                        statusElement.innerText = "No plows active.";
+                    } else {
+                        statusElement.innerHTML = "<strong>Plows Active:</strong><br>";
+                        activeVehicles.forEach(item => {
+                            statusElement.innerHTML += `Vehicle ID: ${item.device.id} <br>`;
+                        });
+                    }
+                } catch (error) {
+                    console.error("Error fetching plow status:", error);
+                    document.getElementById("status").innerText = "Error loading plow status.";
+                }
+            };
+
+            // Ensure it updates after loading
+            window.updatePlowStatus();
         }
-      }
-      
-      // Run the function when the Add-in loads
-      updatePlowStatus();
-    }
-  };
+    };
 };
