@@ -4,8 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plow Status</title>
+    <style>
+        #plowStatusContainer {
+            display: block; /* Keep it visible */
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px;
+            border: 2px solid black;
+            z-index: 10000;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+        }
+        #updatePlowStatusButton {
+            margin-top: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
+    <div id="plowStatusContainer">
+        <h2>Plow Status</h2>
+        <p id="status">Fetching status...</p>
+        <button id="updatePlowStatusButton">Refresh</button>
+    </div>
+
     <script src="plowStatusAddIn.js"></script>
 </body>
 </html>
