@@ -23,14 +23,20 @@ window.geotab.addin.plowStatus = {
             console.log("updatePlowStatus() function called!");
 
             try {
-                const data = await api.call("GetFeed", {
+                const data = await api.call("Get", {
                     typeName: "StatusData",
                     search: {
                         diagnosticSearch: { id: ["Aux6", "ThirdPartyAux6"] }
                     }
                 });
 
-                const activeVehicles = data.data.filter(item => item.value === 1);
+                if (!data || !data.length) {
+                    console.warn("No status data received from Geotab API.");
+                    document.getElementById("status").innerText = "No vehicles with Plow ON.";
+                    return;
+                }
+
+                const activeVehicles = data.filter(item => item.value === 1);
                 const statusElement = document.getElementById("status");
 
                 if (activeVehicles.length === 0) {
@@ -52,11 +58,6 @@ window.geotab.addin.plowStatus = {
     },
     blur(api, state) {
         console.log("Plow Status Add-in Blurred");
-        // **Do NOT hide the container** - this is what makes it disappear!
-        // Commented out to keep the add-in visible:
-        // let container = document.getElementById("plowStatusContainer");
-        // if (container) {
-        //     container.style.display = "none";
-        // }
+        // Remove hiding logic to keep it visible
     }
 };
