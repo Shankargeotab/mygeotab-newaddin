@@ -33,8 +33,12 @@ window.geotab.addin.plowStatusMap = function(api, state) {
             toolbar.appendChild(plowButton);
             console.log("Plow Status button added to map toolbar!");
         },
-        blur: function() {
-            console.log("Plow Status Map Add-in Blurred");
-        }
-    };
-};
+      blur: function() {
+    console.log("Plow Status Map Add-in Blurred");
+    let plowButton = document.getElementById("plowStatusButton");
+    if(plowButton){
+        plowButton.remove();
+        console.log("Plow status button removed");
+    }
+
+}
