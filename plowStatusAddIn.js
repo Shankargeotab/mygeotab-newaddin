@@ -1,6 +1,4 @@
 window.geotab.addin.plowStatus = (function () {
-    let container;
-
     return {
         initialize(api, state, addinReady) {
             console.log("Plow Status Add-in Initialized");
@@ -10,13 +8,15 @@ window.geotab.addin.plowStatus = (function () {
         focus(api, state) {
             console.log("Plow Status Add-in Focused");
 
-            // Ensure container exists and persists
+            // Check if the container already exists to prevent duplication
+            let container = document.getElementById("plowStatusContainer");
+
             if (!container) {
                 container = document.createElement("div");
                 container.id = "plowStatusContainer";
                 container.style.position = "absolute";
                 container.style.top = "80px";
-                container.style.left = "10px";
+                container.style.right = "20px";
                 container.style.background = "white";
                 container.style.padding = "15px";
                 container.style.border = "2px solid black";
@@ -26,12 +26,17 @@ window.geotab.addin.plowStatus = (function () {
                 container.innerHTML = `
                     <h2>Plow Status</h2>
                     <p id="status">Fetching status...</p>
+                    <button id="updatePlowStatusButton" style="margin-top: 10px; padding: 5px 10px; cursor: pointer;">Refresh Status</button>
                 `;
 
                 document.body.appendChild(container);
-                console.log("Container Created & Attached");
+                console.log("Plow Status Container Added to DOM");
+
+                // Button click event
+                document.getElementById("updatePlowStatusButton").addEventListener("click", window.updatePlowStatus);
             }
 
+            // Ensure it's visible
             container.style.display = "block";
             container.style.visibility = "visible";
             container.style.opacity = "1";
@@ -70,8 +75,11 @@ window.geotab.addin.plowStatus = (function () {
 
         blur() {
             console.log("Plow Status Add-in Blurred");
-            // DO NOT HIDE THE CONTAINER to keep it visible
+            // DO NOT REMOVE THE CONTAINER, Just Hide It
+            let container = document.getElementById("plowStatusContainer");
+            if (container) {
+                container.style.display = "none";
+            }
         }
     };
 })();
-
