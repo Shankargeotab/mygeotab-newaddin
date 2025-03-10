@@ -3,7 +3,7 @@ window.geotab.addin.plowStatus = {
         console.log("✅ Plow Status Add-in Initialized");
         addinReady();
     },
-    
+
     focus(api, state) {
         console.log("🔵 Plow Status Add-in Focused");
 
@@ -60,6 +60,11 @@ window.geotab.addin.plowStatus = {
 
         window.updatePlowStatus();
     },
+
+    blur(api, state) {
+        console.log("🟡 Plow Status Add-in Blurred - But NOT Hiding it");
+    }
+};
 
     blur(api, state) {
         console.log("🟡 Plow Status Add-in Blurred - But NOT Hiding it");
