@@ -4,11 +4,20 @@
 	"version": "1.0",
 	"items": [
 		{
-			"url": "https://shankargeotab.github.io/mygeotab-newaddin/plowStatusAddIn.html",
 			"page": "map",
 			"title": "Plow Status",
-			"icon": "https://shankargeotab.github.io/mygeotab-newaddin/icon.svg",
-			"noView": false
+			"noView": false,
+			"mapScript": {
+				"src": "https://shankargeotab.github.io/mygeotab-newaddin/plowStatusAddIn.js"
+			}
+		},
+		{
+			"url": "https://shankargeotab.github.io/mygeotab-newaddin/plowStatusAddIn.html",
+			"path": "PlowStatus/",
+			"menuName": {
+				"en": "Plow Status"
+			},
+			"icon": "https://shankargeotab.github.io/mygeotab-newaddin/icon.svg"
 		}
 	],
 	"isSigned": false
