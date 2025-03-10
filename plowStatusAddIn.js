@@ -1,48 +1,50 @@
 window.geotab.addin.plowStatus = (function () {
     return {
         initialize(api, state, addinReady) {
-            console.log("Plow Status Add-in Initialized");
+            console.log("✅ Plow Status Add-in Initialized");
             addinReady();
         },
 
         focus(api, state) {
-            console.log("Plow Status Add-in Focused");
+            console.log("🎯 Plow Status Add-in Focused");
 
-            // Check if the container already exists to prevent duplication
-            let container = document.getElementById("plowStatusContainer");
+            function ensureContainerExists() {
+                let container = document.getElementById("plowStatusContainer");
 
-            if (!container) {
-                container = document.createElement("div");
-                container.id = "plowStatusContainer";
-                container.style.position = "absolute";
-                container.style.top = "80px";
-                container.style.right = "20px";
-                container.style.background = "white";
-                container.style.padding = "15px";
-                container.style.border = "2px solid black";
-                container.style.zIndex = "1000";
-                container.style.boxShadow = "2px 2px 10px rgba(0,0,0,0.2)";
-                container.style.fontFamily = "Arial, sans-serif";
-                container.innerHTML = `
-                    <h2>Plow Status</h2>
-                    <p id="status">Fetching status...</p>
-                    <button id="updatePlowStatusButton" style="margin-top: 10px; padding: 5px 10px; cursor: pointer;">Refresh Status</button>
-                `;
+                if (!container) {
+                    container = document.createElement("div");
+                    container.id = "plowStatusContainer";
+                    container.style.position = "absolute";
+                    container.style.top = "80px";
+                    container.style.right = "20px";
+                    container.style.background = "white";
+                    container.style.padding = "15px";
+                    container.style.border = "2px solid black";
+                    container.style.zIndex = "1000";
+                    container.style.boxShadow = "2px 2px 10px rgba(0,0,0,0.2)";
+                    container.style.fontFamily = "Arial, sans-serif";
+                    container.innerHTML = `
+                        <h2>Plow Status</h2>
+                        <p id="status">Fetching status...</p>
+                        <button id="updatePlowStatusButton" style="margin-top: 10px; padding: 5px 10px; cursor: pointer;">Refresh Status</button>
+                    `;
+                    document.body.appendChild(container);
+                    console.log("📌 Plow Status Container Added to DOM");
 
-                document.body.appendChild(container);
-                console.log("Plow Status Container Added to DOM");
+                    document.getElementById("updatePlowStatusButton").addEventListener("click", window.updatePlowStatus);
+                }
 
-                // Button click event
-                document.getElementById("updatePlowStatusButton").addEventListener("click", window.updatePlowStatus);
+                container.style.display = "block";
+                container.style.visibility = "visible";
+                container.style.opacity = "1";
             }
 
-            // Ensure it's visible
-            container.style.display = "block";
-            container.style.visibility = "visible";
-            container.style.opacity = "1";
+            // 🔄 Keep checking if the container exists every 2 seconds
+            ensureContainerExists();
+            setInterval(ensureContainerExists, 2000);
 
             window.updatePlowStatus = async function () {
-                console.log("updatePlowStatus() function called!");
+                console.log("🔄 updatePlowStatus() function called!");
 
                 try {
                     const data = await api.call("GetFeed", {
@@ -65,21 +67,5 @@ window.geotab.addin.plowStatus = (function () {
                         statusElement.innerHTML = vehicleList;
                     }
                 } catch (error) {
-                    console.error("Error fetching plow status:", error);
-                    document.getElementById("status").innerText = "Error loading plow status.";
-                }
-            };
-
-            window.updatePlowStatus();
-        },
-
-        blur() {
-            console.log("Plow Status Add-in Blurred");
-            // DO NOT REMOVE THE CONTAINER, Just Hide It
-            let container = document.getElementById("plowStatusContainer");
-            if (container) {
-                container.style.display = "none";
-            }
-        }
-    };
-})();
+                    console.error("⚠️ Error fetching plow status:", error);
+                    document.getElementBy
