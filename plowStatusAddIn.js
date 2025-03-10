@@ -23,12 +23,12 @@ window.geotab.addin.plowStatus = {
             // 🛠️ Add Debugging Log for API Request
             console.log("📡 Sending API request to get plow status...");
             // Define updatePlowStatus in the global scope
-            window.updatePlowStatus = async function () { 
+            window.updatePlowStatus = async function () {
                 try {
                     const data = await api.call("Get", {
                         typeName: "StatusData",
                         search: {
-                            diagnosticSearch: {id: ["Aux6", "ThirdPartyAux6"]}
+                            diagnosticSearch: {id: ["DiagnosticAux6Id", "DiagnosticThirdPartyAux6Id"]}
                         }
                     });
                     console.log("📡 API Response:", data);
@@ -53,6 +53,7 @@ window.geotab.addin.plowStatus = {
                     statusElement.innerText = "⚠️ Error loading plow status.";
                 }
             };
+            // Call updatePlowStatus when the add-in is focused
             window.updatePlowStatus();
         } catch (error) {
             console.error("❌ Error during focus:", error);
