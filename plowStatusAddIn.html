@@ -6,7 +6,7 @@
     <title>Plow Status</title>
     <style>
         #plowStatusContainer {
-            display: block !important;  /* Ensures visibility */
+            display: block !important; /* Ensures visibility */
             position: absolute;
             top: 60px;
             left: 10px;
@@ -21,6 +21,7 @@
     <div id="plowStatusContainer">
         <h2>Plow Status</h2>
         <p id="status">Fetching status...</p>
+        <button onclick="window.updatePlowStatus()">Refresh Status</button>
     </div>
     <script src="plowStatusAddIn.js"></script>
 </body>
