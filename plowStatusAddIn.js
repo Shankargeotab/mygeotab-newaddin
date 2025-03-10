@@ -8,18 +8,21 @@ window.geotab.addin.plowStatus = (function () {
         focus(api, state) {
             console.log("🎯 Plow Status Add-in Focused");
 
-            function ensureContainerExists() {
+            function createPanel() {
                 let container = document.getElementById("plowStatusContainer");
 
                 if (!container) {
+                    let sidePanel = document.querySelector('.side-panel-content');
+                    if (!sidePanel) {
+                        console.error("❌ Side panel not found! Can't attach add-in.");
+                        return;
+                    }
+
                     container = document.createElement("div");
                     container.id = "plowStatusContainer";
-                    container.style.position = "absolute";
-                    container.style.top = "80px";
-                    container.style.right = "20px";
                     container.style.background = "white";
                     container.style.padding = "15px";
-                    container.style.border = "2px solid black";
+                    container.style.borderTop = "2px solid black";
                     container.style.zIndex = "1000";
                     container.style.boxShadow = "2px 2px 10px rgba(0,0,0,0.2)";
                     container.style.fontFamily = "Arial, sans-serif";
@@ -28,8 +31,9 @@ window.geotab.addin.plowStatus = (function () {
                         <p id="status">Fetching status...</p>
                         <button id="updatePlowStatusButton" style="margin-top: 10px; padding: 5px 10px; cursor: pointer;">Refresh Status</button>
                     `;
-                    document.body.appendChild(container);
-                    console.log("📌 Plow Status Container Added to DOM");
+                    
+                    sidePanel.appendChild(container);
+                    console.log("📌 Plow Status Container Added to Side Panel");
 
                     document.getElementById("updatePlowStatusButton").addEventListener("click", window.updatePlowStatus);
                 }
@@ -39,9 +43,9 @@ window.geotab.addin.plowStatus = (function () {
                 container.style.opacity = "1";
             }
 
-            // 🔄 Keep checking if the container exists every 2 seconds
-            ensureContainerExists();
-            setInterval(ensureContainerExists, 2000);
+            // Ensure add-in stays visible
+            createPanel();
+            setInterval(createPanel, 2000);
 
             window.updatePlowStatus = async function () {
                 console.log("🔄 updatePlowStatus() function called!");
@@ -68,4 +72,15 @@ window.geotab.addin.plowStatus = (function () {
                     }
                 } catch (error) {
                     console.error("⚠️ Error fetching plow status:", error);
-                    document.getElementBy
+                    document.getElementById("status").innerText = "Error loading plow status.";
+                }
+            };
+
+            window.updatePlowStatus();
+        },
+
+        blur() {
+            console.log("Plow Status Add-in Blurred");
+        }
+    };
+})();
