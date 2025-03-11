@@ -15,34 +15,58 @@ window.geotab.addin.plowStatus = {
                 console.error("❌ Container NOT FOUND! Check index.html");
                 return;
             }
+
             container.style.display = "block";
             container.style.visibility = "visible";
             container.style.opacity = "1";
+
             let statusElement = document.getElementById("status");
             statusElement.innerText = "🔄 Fetching plow status...";
-            // 🛠️ Add Debugging Log for API Request
+
             console.log("📡 Sending API request to get plow status...");
-            // Define updatePlowStatus in the global scope
+
             window.updatePlowStatus = async function () {
                 try {
                     const data = await api.call("Get", {
                         typeName: "StatusData",
                         search: {
-                            diagnosticSearch: {id: ["DiagnosticAux6Id", "DiagnosticThirdPartyAux6Id"]}
+                            diagnosticSearch: [
+                                { id: "DiagnosticAux6Id" },
+                                { id: "DiagnosticThirdPartyAux6Id" },
+                                { id: "DiagnosticIgnitionId" }
+                            ]
                         }
                     });
+
                     console.log("📡 API Response:", data);
-                    if (!data || !data.length) {
-                        console.warn("⚠️ No status data received from Geotab API.");
-                        statusElement.innerText = "No vehicles with Plow ON.";
+
+                    if (!data || data.length < 3) {
+                        console.warn("⚠️ Not all status data received from Geotab API.");
+                        statusElement.innerText = "Data incomplete.";
                         return;
                     }
-                    const activeVehicles = data.filter(item => item.value === 1);
-                    console.log("🚜 Active Vehicles with Plow ON:", activeVehicles);
+
+                    const ignitionData = data.find(item => item.diagnostic.id === "DiagnosticIgnitionId");
+                    const auxData = data.filter(item => 
+                        item.diagnostic.id === "DiagnosticAux6Id" || 
+                        item.diagnostic.id === "DiagnosticThirdPartyAux6Id"
+                    );
+
+                    if (!ignitionData || !auxData || auxData.length === 0) {
+                        console.warn("⚠️ Ignition or Aux data not found.");
+                        statusElement.innerText = "Data missing.";
+                        return;
+                    }
+
+                    const ignitionOn = ignitionData.value === 1; // Assuming 1 represents "on"
+                    const activeVehicles = auxData.filter(item => item.value === 1 && ignitionOn);
+
+                    console.log("🚜 Active Vehicles with Plow ON and Ignition ON:", activeVehicles);
+
                     if (activeVehicles.length === 0) {
-                        statusElement.innerText = "❌ No vehicles with Plow ON.";
+                        statusElement.innerText = "❌ No vehicles with Plow ON and Ignition ON.";
                     } else {
-                        let vehicleList = "<strong>✅ Vehicles with Plow ON:</strong><br>";
+                        let vehicleList = "<strong>✅ Vehicles with Plow ON and Ignition ON:</strong><br>";
                         activeVehicles.forEach(item => {
                             vehicleList += `Vehicle ID: ${item.device.id} <br>`;
                         });
@@ -53,8 +77,11 @@ window.geotab.addin.plowStatus = {
                     statusElement.innerText = "⚠️ Error loading plow status.";
                 }
             };
-            // Call updatePlowStatus when the add-in is focused
-            window.updatePlowStatus();
+
+            // Delay API call to ensure Geotab API is fully loaded
+            setTimeout(() => {
+                window.updatePlowStatus();
+            }, 500);
         } catch (error) {
             console.error("❌ Error during focus:", error);
         }
