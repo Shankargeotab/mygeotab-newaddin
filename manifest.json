@@ -8,7 +8,7 @@
       "title": "Plow Status",
       "noView": false,
       "mapScript": {
-        "src": "https://shankargeotab.github.io/mygeotab-newaddin/plowStatusMap.js"
+        "src": "https://geotab.github.io/sdk/software/api/geotab.api.js" // Corrected URL
       }
     },
     {
@@ -22,4 +22,3 @@
   ],
   "isSigned": false
 }
-
