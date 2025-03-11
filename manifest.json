@@ -17,8 +17,9 @@
             "menuName": {
                 "en": "Plow Status"
             },
-            "svgIcon": "https://shankargeotab.github.io/mygeotab-newaddin/icon.svg"
+            "icon": "https://shankargeotab.github.io/mygeotab-newaddin/icon.svg"
         }
     ],
     "isSigned": false
 }
+
