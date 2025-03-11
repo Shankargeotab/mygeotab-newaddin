@@ -8,9 +8,9 @@
       "title": "Plow Status",
       "noView": false,
       "mapScript": {
-        "src": "https://geotab.github.io/sdk/software/api/geotab.api.js" // Corrected URL
+        "src": "https://geotab.github.io/sdk/software/api/geotab.api.js"
       }
-    },
+    },  // <--- ADD THIS COMMA
     {
       "url": "https://shankargeotab.github.io/mygeotab-newaddin/plowStatusAddIn.html",
       "path": "PlowStatus/",
