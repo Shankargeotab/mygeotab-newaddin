@@ -69,6 +69,5 @@ window.geotab.addin.plow_status_addin = {
 
   blur(api, state) {
     console.log("🟡 Plow Status Add-in Blurred");
-    // Optionally hide or reset the container here
   }
 };
