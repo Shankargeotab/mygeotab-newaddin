@@ -1,7 +1,7 @@
 window.geotab = window.geotab || {};
 window.geotab.addin = window.geotab.addin || {};
 
-window.geotab.addin.plowStatus = {
+window.geotab.addin.plow_status_addin = {
   initialize(api, state, addinReady) {
     console.log("✅ Plow Status Add-in Initialized");
     addinReady();
@@ -72,4 +72,3 @@ window.geotab.addin.plowStatus = {
     // Optionally hide or reset the container here
   }
 };
-
