@@ -1,81 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plow Status</title>
-    <style>
-        #plowStatusContainer {
-            display: block !important;
-            position: absolute;
-            top: 60px;
-            left: 10px;
-            background: white;
-            padding: 10px;
-            border: 1px solid black;
-            z-index: 1000;
-        }
-    </style>
-    <script defer src="plowStatusAddIn.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plow Status</title>
+  <style>
+    #plowStatusContainer {
+      display: block !important;
+      position: absolute;
+      top: 60px;
+      left: 10px;
+      background: white;
+      padding: 10px;
+      border: 1px solid black;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
-    <div id="plowStatusContainer">
-        <h2>Plow Status</h2>
-        <p id="status">Fetching status...</p>
-        <button onclick="window.updatePlowStatus()">Refresh Status</button>
-    </div>
+  <div id="plowStatusContainer">
+    <h2>Plow Status</h2>
+    <p id="status">Fetching status...</p>
+    <button id="refreshBtn">Refresh Status</button>
+  </div>
+
+  <!-- Load your Add-In logic -->
+  <script src="plowStatusAddIn.js"></script>
 </body>
 </html>
-<script> window.updatePlowStatus = async function () {
-                try {
-                    const data = await api.call("Get", {
-                        typeName: "StatusData",
-                        search: {
-                            diagnosticSearch: [
-                                { id: "DiagnosticAux6Id" },
-                                { id: "DiagnosticThirdPartyAux6Id" },
-                                { id: "DiagnosticIgnitionId" }
-                            ]
-                        }
-                    });
 
-                    console.log("📡 API Response:", data);
-
-                    if (!data || data.length < 3) {
-                        console.warn("⚠️ Not all status data received from Geotab API.");
-                        statusElement.innerText = "Data incomplete.";
-                        return;
-                    }
-
-                    const ignitionData = data.find(item => item.diagnostic.id === "DiagnosticIgnitionId");
-                    const auxData = data.filter(item => 
-                        item.diagnostic.id === "DiagnosticAux6Id" || 
-                        item.diagnostic.id === "DiagnosticThirdPartyAux6Id"
-                    );
-
-                    if (!ignitionData || !auxData || auxData.length === 0) {
-                        console.warn("⚠️ Ignition or Aux data not found.");
-                        statusElement.innerText = "Data missing.";
-                        return;
-                    }
-
-                    const ignitionOn = ignitionData.value === 1; // Assuming 1 represents "on"
-                    const activeVehicles = auxData.filter(item => item.value === 1 && ignitionOn);
-
-                    console.log("🚜 Active Vehicles with Plow ON and Ignition ON:", activeVehicles);
-
-                    if (activeVehicles.length === 0) {
-                        statusElement.innerText = "❌ No vehicles with Plow ON and Ignition ON.";
-                    } else {
-                        let vehicleList = "<strong>✅ Vehicles with Plow ON and Ignition ON:</strong><br>";
-                        activeVehicles.forEach(item => {
-                            vehicleList += `Vehicle ID: ${item.device.id} <br>`;
-                        });
-                        statusElement.innerHTML = vehicleList;
-                    }
-                } catch (error) {
-                    console.error("❌ Error fetching plow status:", error);
-                    statusElement.innerText = "⚠️ Error loading plow status.";
-                }
-            };
-</script>
