@@ -10,12 +10,11 @@ window.geotab.addin.plow_status_addin = {
   focus(api, state) {
     console.log("🔵 Plow Status Add-in Focused");
 
-    const container = document.getElementById("plowStatusContainer");
-    const statusElement = document.getElementById("status");
-    const refreshBtn = document.getElementById("refreshBtn");
-
-    if (!container || !statusElement || !refreshBtn) {
-      console.error("❌ One or more DOM elements not found.");
+    const container   = document.getElementById("plowStatusContainer");
+    const statusElem  = document.getElementById("status");
+    const refreshBtn  = document.getElementById("refreshBtn");
+    if (!container || !statusElem || !refreshBtn) {
+      console.error("❌ Missing DOM elements");
       return;
     }
 
@@ -34,32 +33,32 @@ window.geotab.addin.plow_status_addin = {
           }
         });
 
-        const ignitionData = data.find(item => item.diagnostic.id === "DiagnosticIgnitionId");
-        const auxData = data.filter(item =>
-          item.diagnostic.id === "DiagnosticAux6Id" ||
-          item.diagnostic.id === "DiagnosticThirdPartyAux6Id"
+        const ignData = data.find(d => d.diagnostic.id === "DiagnosticIgnitionId");
+        const auxData = data.filter(d =>
+          d.diagnostic.id === "DiagnosticAux6Id" ||
+          d.diagnostic.id === "DiagnosticThirdPartyAux6Id"
         );
 
-        if (!ignitionData || auxData.length === 0) {
-          statusElement.innerText = "⚠️ Data missing or incomplete.";
+        if (!ignData || auxData.length === 0) {
+          statusElem.innerText = "⚠️ Data missing or incomplete.";
           return;
         }
 
-        const ignitionOn = ignitionData.value === 1;
-        const activeVehicles = auxData.filter(item => item.value === 1 && ignitionOn);
+        const ignitionOn     = ignData.value === 1;
+        const activeVehicles = auxData.filter(d => d.value === 1 && ignitionOn);
 
         if (activeVehicles.length === 0) {
-          statusElement.innerText = "❌ No vehicles with Plow ON and Ignition ON.";
+          statusElem.innerText = "❌ No vehicles with Plow ON and Ignition ON.";
         } else {
-          let vehicleList = "<strong>✅ Vehicles with Plow ON and Ignition ON:</strong><br>";
-          activeVehicles.forEach(item => {
-            vehicleList += `Vehicle ID: ${item.device.id} <br>`;
+          let html = "<strong>✅ Vehicles with Plow ON and Ignition ON:</strong><br>";
+          activeVehicles.forEach(d => {
+            html += `Vehicle ID: ${d.device.id}<br>`;
           });
-          statusElement.innerHTML = vehicleList;
+          statusElem.innerHTML = html;
         }
-      } catch (error) {
-        console.error("❌ Error fetching plow status:", error);
-        statusElement.innerText = "⚠️ Error loading plow status.";
+      } catch (e) {
+        console.error("❌ Error fetching plow status:", e);
+        statusElem.innerText = "⚠️ Error loading plow status.";
       }
     };
 
