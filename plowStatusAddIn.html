@@ -16,13 +16,16 @@
       z-index: 1000;
     }
   </style>
+  <!-- 1️⃣ Load the Geotab API -->
+  <script defer src="https://cdn.jsdelivr.net/gh/Geotab/sdk/software/api/geotab.api.js"></script>
+  <!-- 2️⃣ Then load your add-in code -->
+  <script defer src="plowStatusAddIn.js"></script>
 </head>
 <body>
   <div id="plowStatusContainer">
     <h2>Plow Status</h2>
-    <p id="status">Fetching status...</p>
+    <p id="status">Fetching status…</p>
     <button id="refreshBtn">Refresh Status</button>
   </div>
-  <script src="plowStatusAddIn.js"></script>
 </body>
 </html>
