@@ -5,6 +5,7 @@ This add-in displays the plow status of vehicles by reading the Aux 6 diagnostic
 ## Features
 - Shows when the plow is active or inactive
 - Retrieves real-time data from MyGeotab
+- Checks plow status for the last five minutes only
 
 ## Installation
 1. Log in to **MyGeotab** and open **Administration > System Settings > Add-Ins**.
