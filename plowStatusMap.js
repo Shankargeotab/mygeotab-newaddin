@@ -16,7 +16,7 @@ window.geotab.addin.plow_status_addin_map = function(api, state) {
       btn.id        = "plowStatusButton";
       btn.innerText = "Show Plow Status";
       btn.style.padding = "5px";
-      btn.onclick = () => state.open("plow_status_addin");
+      btn.onclick = () => state.open("plow_status_addin.html");
       toolbar.appendChild(btn);
       console.log("✅ Plow Status button added");
     },
