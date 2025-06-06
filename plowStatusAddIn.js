@@ -20,9 +20,14 @@ window.geotab.addin.plow_status_addin = {
 
     const updatePlowStatus = async () => {
       try {
+        const toDate = new Date();
+        const fromDate = new Date(toDate.getTime() - 5 * 60 * 1000);
+
         const data = await api.call("Get", {
           typeName: "StatusData",
           search: {
+            fromDate,
+            toDate,
             diagnosticSearch: {
               id: [
                 "DiagnosticAux6Id",
