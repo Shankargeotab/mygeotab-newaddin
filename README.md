@@ -8,3 +8,4 @@ This Add-in displays the Plow status using **Aux 6** in MyGeotab.
 
 ## Installation:
 1. Add this URL to **MyGeotab > Administration > System Settings > Add-ins**:
+   https://shankargeotab.github.io/mygeotab-newaddin/plow_status_addin.html
