@@ -1,0 +1,7 @@
+{
+  "PlowStatus": "Plow Status",
+  "CheckPlowStatus": "Check Plow Status",
+  "Loading": "Loading...",
+  "NoVehicles": "No vehicles with Plow ON. Not plowing now.",
+  "ErrorLoading": "Error loading plow status."
+}

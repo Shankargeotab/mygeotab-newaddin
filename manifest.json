@@ -1,0 +1,27 @@
+{
+  "name": "plow_status_addin",
+  "supportEmail": "help@dicaninc.com",
+  "version": "1.0",
+  "items": [
+    {
+      "page": "plow_status_addin.html",
+      "title": "Plow Status",
+      "svgIcon": "https://shankargeotab.github.io/mygeotab-newaddin/icon.svg",
+      "noView": false
+    },
+    {
+      "page": "map",
+      "title": "Plow Status",
+      "mapScript": {
+        "src": "https://shankargeotab.github.io/mygeotab-newaddin/plowStatusMap.js"
+      }
+    }
+  ],
+  "isSigned": false
+}
+
+
+
+
+
+
